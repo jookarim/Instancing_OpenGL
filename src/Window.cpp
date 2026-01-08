@@ -20,7 +20,7 @@ namespace KE
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-		glfwWindowHint(GLFW_RESIZABLE, true);
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
 		m_handle = glfwCreateWindow(width, height, title.data(), nullptr, nullptr);
 

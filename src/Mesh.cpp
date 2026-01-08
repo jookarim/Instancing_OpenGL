@@ -12,8 +12,8 @@ namespace KE
 		glVertexArrayVertexBuffer(m_vao, 0, m_vbo, 0, sizeof(Vertex));
 		glVertexArrayElementBuffer(m_vao, m_ibo);
 
-		glNamedBufferData(m_vbo, sizeof(Vertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
-		glNamedBufferData(m_ibo, sizeof(uint32_t) * indices.size(), vertices.data(), GL_STATIC_DRAW);
+		glNamedBufferData(m_vbo, sizeof(Vertex) * m_vertices.size(), m_vertices.data(), GL_STATIC_DRAW);
+		glNamedBufferData(m_ibo, sizeof(uint32_t) * m_indices.size(), m_indices.data(), GL_STATIC_DRAW);
 
 		glEnableVertexArrayAttrib(m_vao, 0);
 		glVertexArrayAttribFormat(m_vao, 0, 3, GL_FLOAT, GL_FALSE, 0);
