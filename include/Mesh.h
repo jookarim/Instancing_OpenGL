@@ -4,8 +4,7 @@
 #include <vector>
 #include <cstdint>
 #include <cstddef>
-
-struct Vertex;
+#include "Vertex.h"
 
 namespace KE
 {

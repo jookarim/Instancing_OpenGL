@@ -47,7 +47,7 @@ namespace KE
 		std::string_view fragPath)
 	{
 		m_shaderCodes = loadShaders(vertPath, fragPath);
-
+		
 		uint32_t vertShader = glCreateShader(GL_VERTEX_SHADER);
 		const char* vertexCode = m_shaderCodes.vertexCode.c_str();
 		glShaderSource(vertShader, 1, &vertexCode, nullptr);
@@ -64,7 +64,7 @@ namespace KE
 
 		//corrected order of program link/detach/delete
 		glLinkProgram(m_programID);
-
+	
 		glDetachShader(m_programID, vertShader);
 		glDetachShader(m_programID, fragShader);
 		glDeleteShader(vertShader);

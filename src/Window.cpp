@@ -43,6 +43,9 @@ namespace KE
 
 		glfwSetFramebufferSizeCallback(m_handle, framebuffer_resize_callback);
 
+		glDisable(GL_CULL_FACE);
+		glEnable(GL_DEPTH_TEST);
+
 		return 0;
 	}
 
@@ -52,6 +55,7 @@ namespace KE
 		{
 			glfwDestroyWindow(m_handle);
 			m_handle = nullptr;
+			glfwTerminate();
 		}
 	}
 

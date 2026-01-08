@@ -28,6 +28,7 @@ add_executable(Instancing_OpenGL
     src/Mesh.cpp
     src/Shader.cpp
     src/Window.cpp
+    src/Transform.cpp
     SRC/stb_image.cpp
     )
 

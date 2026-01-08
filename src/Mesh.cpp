@@ -1,10 +1,12 @@
 #include "Mesh.h"
-#include "Vertex.h"
 
 namespace KE
 {
 	void Mesh::createMesh(std::vector<Vertex>&& vertices, std::vector<uint32_t>&& indices)
 	{
+		m_vertices = std::move(vertices);
+		m_indices = std::move(indices);
+
 		glCreateVertexArrays(1, &m_vao);
 		glCreateBuffers(1, &m_vbo);
 		glCreateBuffers(1, &m_ibo);
@@ -13,7 +15,7 @@ namespace KE
 		glVertexArrayElementBuffer(m_vao, m_ibo);
 
 		glNamedBufferData(m_vbo, sizeof(Vertex) * m_vertices.size(), m_vertices.data(), GL_STATIC_DRAW);
-		glNamedBufferData(m_ibo, sizeof(uint32_t) * m_indices.size(), m_indices.data(), GL_STATIC_DRAW);
+		glNamedBufferData(m_ibo, sizeof(uint32_t) * m_indices.size(), m_indices.data(), GL_STATIC_DRAW);//corrected: used m_indices.data() not m_vertices.data()
 
 		glEnableVertexArrayAttrib(m_vao, 0);
 		glVertexArrayAttribFormat(m_vao, 0, 3, GL_FLOAT, GL_FALSE, 0);
@@ -22,10 +24,6 @@ namespace KE
 		glEnableVertexArrayAttrib(m_vao, 1);
 		glVertexArrayAttribFormat(m_vao, 1, 2, GL_FLOAT, GL_FALSE, 12);
 		glVertexArrayAttribBinding(m_vao, 1, 0);
-
-		glEnableVertexArrayAttrib(m_vao, 2);
-		glVertexArrayAttribFormat(m_vao, 2, 3, GL_FLOAT, GL_FALSE, 20);
-		glVertexArrayAttribBinding(m_vao, 2, 0);
 	}
 
 	void Mesh::destroyMesh()
@@ -33,9 +31,11 @@ namespace KE
 		glDeleteVertexArrays(1, &m_vao);
 		glDeleteBuffers(1, &m_vbo);
 		glDeleteBuffers(1, &m_ibo);
+
+		m_vao = m_vbo = m_ibo = 0;
 	}
 
-	Mesh::Mesh(std::vector<Vertex>&& vertices, std::vector<uint32_t>&& indices) : m_vertices(std::move(vertices)), m_indices(std::move(indices))
+	Mesh::Mesh(std::vector<Vertex>&& vertices, std::vector<uint32_t>&& indices)
 	{
 		createMesh(std::move(vertices), std::move(indices));
 	}
