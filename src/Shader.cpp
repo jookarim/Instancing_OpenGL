@@ -77,7 +77,7 @@ namespace KE
 		createShaderObjects(vertPath, fragPath);
 	}
 
-	Shader::~Shader()
+	Shader::~Shader() noexcept
 	{
 		if (m_programID != 0)
 			glDeleteProgram(m_programID);
@@ -130,7 +130,7 @@ namespace KE
 		{
 			std::cerr << "Failed to get Uniform: " << name << "\n";
 		}
-
+		
 		m_uniformCache.emplace(key, loc);
 
 		return loc;

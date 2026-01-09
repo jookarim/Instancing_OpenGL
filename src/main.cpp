@@ -3,12 +3,15 @@
 #include "Shader.h"
 #include "Transform.h"
 #include "AssetManager.h"
+#include "Texture.h"
 
 int main()
 {
 	KE::Window window(1270, 720, "Kemet Engine");
 
 	auto shader = KE::AssetManager::getInstance().loadShader("Shader", { "assets/shaders/vertex.txt", "assets/shaders/fragment.txt" });
+
+	KE::Texture texture("assets/images/brick.png");
 
 	window.setWindowIcon("assets/images/pharaoh.png");
 
@@ -32,7 +35,11 @@ int main()
 
 		shader->setUniformMat4("uModel", transform.getTransformMatrix());
 
+		texture.bind(0);
+
 		mesh.draw();
+
+		shader->setUniformInt("uTexture", 0);
 
 		window.swapBuffers();
 	}

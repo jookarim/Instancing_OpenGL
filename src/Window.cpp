@@ -68,7 +68,7 @@ namespace KE
 	}
 
 
-	Window::~Window()
+	Window::~Window() noexcept
 	{
 		destroyWindow();
 	}

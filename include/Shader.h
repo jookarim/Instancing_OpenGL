@@ -30,7 +30,7 @@ namespace KE
 		Shader(std::string_view vertPath,
 			std::string_view fragPath);
 	
-		~Shader();
+		~Shader() noexcept;
 
 		Shader(const Shader&) = delete;
 		Shader& operator=(const Shader&) = delete;

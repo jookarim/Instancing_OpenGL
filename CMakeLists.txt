@@ -31,6 +31,7 @@ add_executable(Instancing_OpenGL
     src/Transform.cpp
     src/stb_image.cpp 
     src/AssetManager.cpp
+    src/Texture.cpp
     )
 
 target_include_directories(Instancing_OpenGL PRIVATE
