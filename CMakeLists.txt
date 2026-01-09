@@ -14,7 +14,7 @@ add_library(imgui STATIC
     External/include/imgui/imgui_demo.cpp
     External/include/imgui/backends/imgui_impl_glfw.cpp
     External/include/imgui/backends/imgui_impl_opengl3.cpp
-     "include/AssetManager.h" "src/AssetManager.cpp")
+)
 
 target_include_directories(imgui PUBLIC
     External/include/imgui
@@ -29,12 +29,13 @@ add_executable(Instancing_OpenGL
     src/Shader.cpp
     src/Window.cpp
     src/Transform.cpp
-    SRC/stb_image.cpp
-         "include/AssetManager.h" "src/AssetManager.cpp")
+    src/stb_image.cpp
+    src/AssetManager.cpp
+    )
 
 target_include_directories(Instancing_OpenGL PRIVATE
     include
-    External/include    # GL, GLFW, GLM, ImGui
+    External/include    # GL, GLFW, GLM, ImGui, stb
 )
 
 target_link_directories(Instancing_OpenGL PRIVATE

@@ -10,7 +10,6 @@ int main()
 
 	auto shader = KE::AssetManager::getInstance().loadShader("Shader", { "assets/shaders/vertex.txt", "assets/shaders/fragment.txt" });
 
-
 	window.setWindowIcon("assets/images/pharaoh.png");
 
 	KE::Mesh mesh(  
