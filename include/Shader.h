@@ -8,9 +8,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <unordered_map>
 
-//remining uniform cache
 namespace KE
 {
+	class AssetManager;
+
 	struct ShaderCodes
 	{
 		std::string vertexCode;
@@ -26,10 +27,11 @@ namespace KE
 	private:
 		ShaderCodes loadShaders(std::string_view vertPath, std::string_view fragPath);
 		void createShaderObjects(std::string_view vertPath, std::string_view fragPath);
+
+		friend class AssetManager;
+		Shader(std::string_view vertPath, std::string_view fragPath);
 	public:
-		Shader(std::string_view vertPath,
-			std::string_view fragPath);
-	
+		Shader() = default;
 		~Shader() noexcept;
 
 		Shader(const Shader&) = delete;

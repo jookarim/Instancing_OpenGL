@@ -7,6 +7,8 @@
 
 namespace KE
 {
+	class AssetManager;
+
 	class Texture
 	{
 	private:
@@ -16,6 +18,8 @@ namespace KE
 
 		void loadTexture(std::string_view path);
 		void destroyTexture();
+
+		friend class AssetManager;
 	public:
 		Texture(std::string_view path);
 		~Texture() noexcept;

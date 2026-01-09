@@ -11,7 +11,7 @@ int main()
 
 	auto shader = KE::AssetManager::getInstance().loadShader("Shader", { "assets/shaders/vertex.txt", "assets/shaders/fragment.txt" });
 
-	KE::Texture texture("assets/images/brick.png");
+	auto texture = KE::AssetManager::getInstance().loadTexture("Brick", "assets/images/brick.png");
 
 	window.setWindowIcon("assets/images/pharaoh.png");
 
@@ -34,12 +34,12 @@ int main()
 		shader->useProgram();
 
 		shader->setUniformMat4("uModel", transform.getTransformMatrix());
+	
+		shader->setUniformInt("uTexture", 0);
 
-		texture.bind(0);
+		texture->bind(0);
 
 		mesh.draw();
-
-		shader->setUniformInt("uTexture", 0);
 
 		window.swapBuffers();
 	}
