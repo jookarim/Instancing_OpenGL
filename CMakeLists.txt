@@ -29,7 +29,7 @@ add_executable(Instancing_OpenGL
     src/Shader.cpp
     src/Window.cpp
     src/Transform.cpp
-    src/stb_image.cpp
+    src/stb_image.cpp 
     src/AssetManager.cpp
     )
 

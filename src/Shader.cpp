@@ -113,14 +113,25 @@ namespace KE
 		return *this;
 	}
 
-	int Shader::getUniformLocation(std::string_view name) const
+	int Shader::getUniformLocation(std::string_view name)
 	{
+		auto key = std::string(name);
+
+		auto it = m_uniformCache.find(key);
+
+		if (it != m_uniformCache.end())
+		{
+			return it->second;
+		}
+
 		int loc = glGetUniformLocation(m_programID, name.data());
 
 		if (loc == -1)
 		{
 			std::cerr << "Failed to get Uniform: " << name << "\n";
 		}
+
+		m_uniformCache.emplace(key, loc);
 
 		return loc;
 	}

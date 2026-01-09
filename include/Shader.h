@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <unordered_map>
 
 //remining uniform cache
 namespace KE
@@ -21,6 +22,7 @@ namespace KE
 	private:
 		uint32_t m_programID = 0;
 		ShaderCodes m_shaderCodes;
+		std::unordered_map<std::string, int> m_uniformCache;
 	private:
 		ShaderCodes loadShaders(std::string_view vertPath, std::string_view fragPath);
 		void createShaderObjects(std::string_view vertPath, std::string_view fragPath);
@@ -38,7 +40,7 @@ namespace KE
 
 		void useProgram() const;
 
-		int getUniformLocation(std::string_view name) const;
+		int getUniformLocation(std::string_view name);
 
 		void setUniformMat4(std::string_view name, const glm::mat4& value);
 		void setUniformVec3(std::string_view name, const glm::vec3& value);
