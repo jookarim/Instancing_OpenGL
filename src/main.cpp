@@ -2,12 +2,14 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "Transform.h"
+#include "AssetManager.h"
 
 int main()
 {
 	KE::Window window(1270, 720, "Kemet Engine");
 
-	KE::Shader shader("assets/shaders/vertex.txt", "assets/shaders/fragment.txt");//remaining asset manager
+	auto shader = KE::AssetManager::getInstance().loadShader("Shader", { "assets/shaders/vertex.txt", "assets/shaders/fragment.txt" });
+
 
 	window.setWindowIcon("assets/images/pharaoh.png");
 
@@ -27,9 +29,9 @@ int main()
 
 		window.clear(255.f, 255.f, 0.f, 255.f);
 
-		shader.useProgram();
+		shader->useProgram();
 
-		shader.setUniformMat4("uModel", transform.getTransformMatrix());
+		shader->setUniformMat4("uModel", transform.getTransformMatrix());
 
 		mesh.draw();
 

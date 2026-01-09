@@ -27,7 +27,7 @@ namespace KE
 	public:
 		Shader(std::string_view vertPath,
 			std::string_view fragPath);
-
+	
 		~Shader();
 
 		Shader(const Shader&) = delete;
