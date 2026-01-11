@@ -34,5 +34,9 @@ namespace KE
 		void pollEvents() const;
 
 		void setWindowIcon(std::string_view path);
+
+		int getWidth() const { return m_width; }
+		int getHeight() const { return m_height; }
+		const std::string& getTitle() const { return m_title; }
 	};
 }

@@ -5,11 +5,11 @@ layout(location = 1) in vec2 aTexCoord;
 
 out vec2 vTexCoord;
 
-uniform mat4 uModel;
+uniform mat4 uMVP;
 
 void main()
 {
-    vec4 worldPosition = uModel * vec4(aPosition, 1.0);
+    vec4 worldPosition = uMVP * vec4(aPosition, 1.0);
     vTexCoord = aTexCoord;
     gl_Position = worldPosition;
 }
