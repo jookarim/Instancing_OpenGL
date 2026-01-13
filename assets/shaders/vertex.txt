@@ -5,11 +5,16 @@ layout(location = 1) in vec2 aTexCoord;
 
 out vec2 vTexCoord;
 
-uniform mat4 uMVP;
+layout(std430, binding = 0) buffer Transforms
+{
+    mat4 models[];
+};
+
+uniform mat4 uVP;
 
 void main()
 {
-    vec4 worldPosition = uMVP * vec4(aPosition, 1.0);
+    vec4 worldPosition = uVP * models[gl_InstanceID] * vec4(aPosition, 1.0);
     vTexCoord = aTexCoord;
     gl_Position = worldPosition;
 }

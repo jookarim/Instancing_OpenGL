@@ -21,8 +21,6 @@ namespace KE
 		Mesh(std::vector<Vertex>&& vertices, std::vector<uint32_t>&& indices);
 		~Mesh() noexcept;
 
-		void draw() const;
-
 		Mesh(const Mesh&) = delete;
 		Mesh& operator=(const Mesh&) = delete;
 
@@ -31,6 +29,12 @@ namespace KE
 
 		const std::vector<Vertex>& getVertices() const { return m_vertices; }
 		const std::vector<uint32_t>& getIndices() const { return m_indices; }
+
+		uint32_t getVAO() const { return  m_vao; }
+
+		void bind() const;
+
+		static Mesh generateCube();
 	};
 }
 

@@ -14,8 +14,8 @@ namespace KE
 		glVertexArrayVertexBuffer(m_vao, 0, m_vbo, 0, sizeof(Vertex));
 		glVertexArrayElementBuffer(m_vao, m_ibo);
 
-		glNamedBufferData(m_vbo, sizeof(Vertex) * m_vertices.size(), m_vertices.data(), GL_STATIC_DRAW);
-		glNamedBufferData(m_ibo, sizeof(uint32_t) * m_indices.size(), m_indices.data(), GL_STATIC_DRAW);//corrected: used m_indices.data() not m_vertices.data()
+		glNamedBufferStorage(m_vbo, sizeof(Vertex) * m_vertices.size(), m_vertices.data(), 0);
+		glNamedBufferStorage(m_ibo, sizeof(uint32_t) * m_indices.size(), m_indices.data(), 0);//corrected: used m_indices.data() not m_vertices.data()
 
 		glEnableVertexArrayAttrib(m_vao, 0);
 		glVertexArrayAttribFormat(m_vao, 0, 3, GL_FLOAT, GL_FALSE, 0);
@@ -45,12 +45,6 @@ namespace KE
 		destroyMesh();
 	}
 
-	void Mesh::draw() const
-	{
-		glBindVertexArray(m_vao);
-		glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
-	}
-
 	Mesh::Mesh(Mesh&& other) : m_vao(other.m_vao),
 		m_vbo(other.m_vbo),
 		m_ibo(other.m_ibo),
@@ -78,5 +72,58 @@ namespace KE
 		other.m_ibo = 0;
 
 		return *this;
+	}
+
+	Mesh Mesh::generateCube()
+	{
+		Mesh cube(
+			std::vector<Vertex>{
+				{{-0.5f, -0.5f, 0.5f}, { 0.f, 0.f }},
+				{ { 0.5f, -0.5f,  0.5f}, {1.f, 0.f} },
+				{ { 0.5f,  0.5f,  0.5f}, {1.f, 1.f} },
+				{ {-0.5f,  0.5f,  0.5f}, {0.f, 1.f} },
+
+				{ { 0.5f, -0.5f, -0.5f}, {0.f, 0.f} },
+				{ {-0.5f, -0.5f, -0.5f}, {1.f, 0.f} },
+				{ {-0.5f,  0.5f, -0.5f}, {1.f, 1.f} },
+				{ { 0.5f,  0.5f, -0.5f}, {0.f, 1.f} },
+
+				{ {-0.5f, -0.5f, -0.5f}, {0.f, 0.f} },
+				{ {-0.5f, -0.5f,  0.5f}, {1.f, 0.f} },
+				{ {-0.5f,  0.5f,  0.5f}, {1.f, 1.f} },
+				{ {-0.5f,  0.5f, -0.5f}, {0.f, 1.f} },
+
+				{ { 0.5f, -0.5f,  0.5f}, {0.f, 0.f} },
+				{ { 0.5f, -0.5f, -0.5f}, {1.f, 0.f} },
+				{ { 0.5f,  0.5f, -0.5f}, {1.f, 1.f} },
+				{ { 0.5f,  0.5f,  0.5f}, {0.f, 1.f} },
+
+				{ {-0.5f,  0.5f,  0.5f}, {0.f, 0.f} },
+				{ { 0.5f,  0.5f,  0.5f}, {1.f, 0.f} },
+				{ { 0.5f,  0.5f, -0.5f}, {1.f, 1.f} },
+				{ {-0.5f,  0.5f, -0.5f}, {0.f, 1.f} },
+
+				{ {-0.5f, -0.5f, -0.5f}, {0.f, 0.f} },
+				{ { 0.5f, -0.5f, -0.5f}, {1.f, 0.f} },
+				{ { 0.5f, -0.5f,  0.5f}, {1.f, 1.f} },
+				{ {-0.5f, -0.5f,  0.5f}, {0.f, 1.f} },
+		},
+
+			std::vector<uint32_t>{
+			0, 1, 2, 2, 3, 0,   
+				4, 5, 6, 6, 7, 4,   
+				8, 9, 10, 10, 11, 8,  
+				12, 13, 14, 14, 15, 12,   
+				16, 17, 18, 18, 19, 16,   
+				20, 21, 22, 22, 23, 20   
+		}
+		);
+
+		return cube;
+	}
+
+	void Mesh::bind() const
+	{
+		glBindVertexArray(m_vao);
 	}
 }

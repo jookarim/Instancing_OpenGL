@@ -33,6 +33,7 @@ add_executable(Instancing_OpenGL
     src/AssetManager.cpp
     src/Texture.cpp
     src/Camera.cpp
+    src/Renderer.cpp
 )
 
 target_include_directories(Instancing_OpenGL PRIVATE
