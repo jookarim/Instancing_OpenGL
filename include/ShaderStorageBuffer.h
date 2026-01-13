@@ -20,7 +20,7 @@ namespace KE
 			glCreateBuffers(1, &m_ID);
 			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, bindingPoint, m_ID);
 			glNamedBufferStorage(m_ID, static_cast<GLsizeiptr>(data.size() * sizeof(T)), data.data(), GL_DYNAMIC_STORAGE_BIT);
-			m_data = std::move(data);
+			m_data = data;
 		}
 
 		void destroySSBO()
@@ -49,5 +49,27 @@ namespace KE
 		uint32_t getID() const { return m_ID; }
 
 		const std::vector<T>& getData() const { return m_data; }
+
+		ShaderStorageBuffer(const ShaderStorageBuffer&) = delete;
+		ShaderStorageBuffer& operator=(const ShaderStorageBuffer&) = delete;
+
+		ShaderStorageBuffer(ShaderStorageBuffer&& other) noexcept
+			: m_ID(other.m_ID), m_data(std::move(other.m_data))
+		{
+			other.m_ID = 0;
+		}
+
+		ShaderStorageBuffer& operator=(ShaderStorageBuffer&& other) noexcept
+		{
+			if (this != &other)
+			{
+				destroySSBO();
+				m_ID = other.m_ID;
+				m_data = std::move(other.m_data);
+				other.m_ID = 0;
+			}
+			return *this;
+		}
+
 	};
 }
