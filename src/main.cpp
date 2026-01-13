@@ -22,14 +22,14 @@ int main()
 
 	KE::Camera camera;
 	camera.setAspect(window.getWidth(), window.getHeight());
-	camera.setPosition({ 0.f, 0.f, 5.f });
+	camera.setPosition({ 50.f, 100.f, 130.f });
 
 	std::vector<glm::mat4> modelMatrices;
 
 	for (int i = 0; i < 1000; ++i)
 	{
 		KE::Transform transform;
-		transform.setPosition(glm::vec3(static_cast<float>(i), 0.5, static_cast<float>(i)));
+		transform.setPosition(glm::vec3(static_cast<float>((i % 50) * 2.f), 0.5, static_cast<float>((i / 50) * 2.f)));
 		modelMatrices.push_back(transform.getTransformMatrix());
 	}
 
@@ -37,11 +37,6 @@ int main()
 
 	while (!window.shouldClose())
 	{
-		modelMatrices[0] = glm::mat4(1.f);
-		modelMatrices[0] = glm::translate(modelMatrices[0], glm::vec3(0.f, 0.f, -5.f));
-		
-		transformSSBO.uploadData(modelMatrices);
-
 		window.pollEvents();
 
 		window.clear(255.f, 255.f, 0.f, 255.f);

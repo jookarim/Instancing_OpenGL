@@ -40,11 +40,21 @@ namespace KE
 		glTextureStorage2D(m_textureID, 1, internalFormat, m_width, m_height);
 		glTextureSubImage2D(m_textureID, 0, 0, 0, m_width, m_height, dataFormat, GL_UNSIGNED_BYTE, data);
 
+		float maxAniso = 0.0f;
+		glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY, &maxAniso);
+
+		glBindTextureUnit(GL_TEXTURE_2D, m_textureID);
+		glTextureParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY, maxAniso); // or 8.0f / 16.0f
+
+
 		glTextureParameteri(m_textureID, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTextureParameteri(m_textureID, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTextureParameteri(m_textureID, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTextureParameteri(m_textureID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTextureParameteri(m_textureID, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTextureParameteri(m_textureID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTextureParameterf(m_textureID, GL_TEXTURE_MAX_ANISOTROPY, maxAniso);
 
+		glGenerateTextureMipmap(m_textureID);
+	
 		stbi_image_free(data);
 	}
 
